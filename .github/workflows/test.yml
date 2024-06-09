@@ -17,7 +17,6 @@ jobs:
           github.rest.actions.createWorkflowDispatch({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            workflow_id: 'second-workflow.yml',
+            workflow_id: 'test2.yml',
             ref: context.ref
           });
-          
