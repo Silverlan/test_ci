@@ -10,8 +10,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Trigger Second Workflow
-      uses: peter-evans/repository-dispatch@v2
+    - name: Call Second Workflow
+      uses: actions/github-script@v6
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        event-type: trigger-second-workflow
+        script: |
+          const response = await github.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: 'second-workflow.yml',
+            ref: context.ref,
+          });
+          console.log(response);
