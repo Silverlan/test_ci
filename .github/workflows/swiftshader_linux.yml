@@ -22,4 +22,28 @@ jobs:
           cmake ..
           cmake --build . --config Release
 
-          ls -R
+      - name: Generate Release Archive
+        shell: bash
+        id: generate-archive
+        run: |
+          archiveName=binaries_linux64.tar.gz
+          tar -czvf $archiveName swiftshader/build/bin/libvulkan.so.1
+          mv $archiveName ../$archiveName
+          echo "archive-name=$archiveName" >> $GITHUB_OUTPUT
+          
+      - name: Update Nightly Tag
+        uses: rickstaa/action-create-tag@v1.3.9
+        continue-on-error: true
+        if: runner.os == 'Linux'
+        with:
+          tag: "latest"
+          force_push_tag: true
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "${{ steps.generate-archive.outputs.archive-name }}"
+          body: "Automatically generated binaries."
+          tag: latest
+          replacesArtifacts: true
+          allowUpdates: true
