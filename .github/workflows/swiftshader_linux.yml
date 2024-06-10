@@ -28,7 +28,6 @@ jobs:
         run: |
           archiveName=binaries_linux64.tar.gz
           tar -czvf $archiveName swiftshader/build/bin/libvulkan.so.1
-          mv $archiveName ../$archiveName
           echo "archive-name=$archiveName" >> $GITHUB_OUTPUT
           
       - name: Update Nightly Tag
