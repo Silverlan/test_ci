@@ -17,26 +17,10 @@ jobs:
     - name: Download Pragma
       run: |
         Invoke-WebRequest -Uri "https://github.com/Silverlan/pragma/releases/download/nightly/pragma-win64.zip" -OutFile "pragma-win64.zip"
-
-    - name: Extract Pragma
-      run: |
         Expand-Archive -Path "pragma-win64.zip" -DestinationPath "pragma"
-
-    - name: Run Pragma Server
-      run: |
         cd pragma
         .\pragma_server.exe -luaext -log 2 2 +map "test_physics" +"lua_exec tests/ci_runner_tests.lua"
-      continue-on-error: true
-      id: run-pragma
 
-    - name: Print Exit Code
-      run: echo Exit code was ${{ steps.run-pragma.outcome == 'success' && '0' || '1' }}
-
-    - uses: LouisBrunner/checks-action@v2.0.0
+    - uses: mxschmitt/action-tmate@v3.18
       if: always()
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        name: Test XYZ
-        conclusion: ${{ job.status }}
-        output: |
-          {"summary":"Test was a success","text_description":"This is a text description of the annotations and images\nWith more stuff\nAnd more"}
+      name: CI
