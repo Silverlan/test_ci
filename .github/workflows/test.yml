@@ -22,12 +22,12 @@ jobs:
       - name: Extract pragma-lin64.tar.gz
         run: tar -xzf pragma-lin64.tar.gz
 
-      #- name: Install required packages
-      #  shell: bash
-      #  run: |
-      #    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-      #    sudo apt-get update
-      #    sudo apt-get install --only-upgrade libstdc++6
+      - name: Install required packages
+        shell: bash
+        run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+          sudo apt-get install --only-upgrade libstdc++6
 
       - name: Run pragma_server
         run: |
