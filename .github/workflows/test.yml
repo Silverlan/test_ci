@@ -27,9 +27,9 @@ jobs:
         run: |
           # Required to fix
           # /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.32' not found
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-get update
-          sudo apt-get install --only-upgrade libstdc++6
+          #sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          #sudo apt-get update
+          #sudo apt-get install --only-upgrade libstdc++6
 
       - name: Run pragma_server
         run: |
