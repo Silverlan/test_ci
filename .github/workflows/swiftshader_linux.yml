@@ -20,4 +20,6 @@ jobs:
           cd swiftshader
           cd build
           cmake ..
-          cmake --build . --parallel --config Release
+          cmake --build . --config Release
+
+          ls -R
