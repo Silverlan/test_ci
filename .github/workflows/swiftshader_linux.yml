@@ -1,0 +1,22 @@
+name: SwiftShader - Linux
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-pragma-server:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Install required packages
+        shell: bash
+        run: |
+          git clone https://github.com/Silverlan/swiftshader.git
+          cd swiftshader
+          cd build
+          cmake ..cmake --build . --parallel --config RelWithDebInfo
