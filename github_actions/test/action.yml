@@ -1,0 +1,13 @@
+name: Run Tests
+description: 'Run Tests'
+inputs:
+  test-arg:
+    description: 'Test'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Test
+      shell: bash
+      run: |
+        For each value in test-arg: print value

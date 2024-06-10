@@ -1,7 +1,7 @@
 name: Pragma CI2
 
-on:
-  workflow_dispatch:
+#on:
+#  workflow_dispatch:
 #on:
 #  repository_dispatch:
 #    types: [trigger-second-workflow]
