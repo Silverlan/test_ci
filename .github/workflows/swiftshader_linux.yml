@@ -27,7 +27,8 @@ jobs:
         id: generate-archive
         run: |
           archiveName=binaries_linux64.tar.gz
-          tar -czvf $archiveName swiftshader/build/bin/libvulkan.so.1
+          cd swiftshader/build/bin/
+          tar -czvf ../../../$archiveName libvulkan.so.1
           echo "archive-name=$archiveName" >> $GITHUB_OUTPUT
           
       - name: Update Nightly Tag

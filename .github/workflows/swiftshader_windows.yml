@@ -29,7 +29,8 @@ jobs:
         run: |
           archiveName=swiftshader.zip
           vcpkg install 7zip
-          "7z.exe" a $archiveName "swiftshader/build/bin/vulkan-1.dll" -r
+          cd swiftshader/build/bin/
+          "7z.exe" a ../../../$archiveName "vulkan-1.dll" -r
           echo "archive-name=$archiveName" >> $GITHUB_OUTPUT
           
       - name: Update Nightly Tag
