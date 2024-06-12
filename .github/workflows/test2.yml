@@ -28,3 +28,10 @@ jobs:
       if: always()
       name: CI
 
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: Artifacts
+        overwrite: true
+        path: "pragma/crashdumps"
