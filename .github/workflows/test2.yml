@@ -19,7 +19,7 @@ jobs:
     - name: Download Pragma
       shell: pwsh
       run: |
-        Invoke-WebRequest -Uri "https://github.com/Silverlan/tmp_pragma_win_runner/releases/download/nightly/pragma-win64.zip" -OutFile "pragma-win64.zip"
+        Invoke-WebRequest -Uri "https://github.com/Silverlan/pragma/releases/download/nightly/pragma-win64.zip" -OutFile "pragma-win64.zip"
         Expand-Archive -Path "pragma-win64.zip" -DestinationPath "pragma"
         cd pragma
         .\pragma_server.exe -luaext -log 2 2 +map "test_physics" +"lua_exec tests/ci_runner_tests.lua"
