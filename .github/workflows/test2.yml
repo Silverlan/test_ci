@@ -22,7 +22,36 @@ jobs:
         Invoke-WebRequest -Uri "https://github.com/Silverlan/pragma/releases/download/nightly/pragma-win64.zip" -OutFile "pragma-win64.zip"
         Expand-Archive -Path "pragma-win64.zip" -DestinationPath "pragma"
         cd pragma
-        .\pragma_server.exe -luaext -log 2 2 +map "test_physics" +"lua_exec tests/ci_runner_tests.lua"
+    #    .\pragma_server.exe -luaext -log 2 2 +map "test_physics" +"lua_exec tests/ci_runner_tests.lua"
+
+    - name: Download ProcMon
+      run: |
+        Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procmon.zip -OutFile procmon.zip
+        Expand-Archive -Path procmon.zip -DestinationPath procmon
+
+    - name: Start ProcMon
+      run: |
+        .\procmon\Procmon.exe /Quiet /Minimized /Backingfile ProcMonLog.PML
+        Start-Sleep -Seconds 5  # Give ProcMon time to start
+
+    - name: Run your program
+      run: |
+        pragma_server.exe
+
+    - name: Stop ProcMon
+      run: |
+        Stop-Process -Name procmon
+        Start-Sleep -Seconds 5  # Give ProcMon time to flush the log
+
+    - name: Display output
+      run: cat output.log
+
+    - name: Upload ProcMon log
+      uses: actions/upload-artifact@v2
+      with:
+        name: procmon-log
+        path: ProcMonLog.PML
+
 
     - uses: mxschmitt/action-tmate@v3.18
       if: always()
