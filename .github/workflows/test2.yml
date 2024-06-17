@@ -10,28 +10,11 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Download Pragma
-      shell: pwsh
+    - name: Install numpy
+      shell: bash
+      id: install-numpy
       run: |
-        Invoke-WebRequest -Uri "https://github.com/Silverlan/tmp_pragma_win_runner/releases/download/nightly/pragma-win64.zip" -OutFile "pragma-win64.zip"
-        Expand-Archive -Path "pragma-win64.zip" -DestinationPath "pragma"
-        cd pragma
-        .\pragma_server.exe -luaext -log 2 2 +map "test_physics" +"lua_exec tests/ci_runner_tests.lua"
-
-    - uses: mxschmitt/action-tmate@v3.18
-      if: always()
-      name: CI
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: Artifacts
-        overwrite: true
-        path: "pragma/crashdumps"
+        pip install numpy==1.26.4
